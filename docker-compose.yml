@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api/seminar-api:/app
+    # todo-apiに修正
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    volumes:
+      - ./front/seminar-front:/app
+    # todo-frontに修正
+    ports:
+      - "4000:3000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
