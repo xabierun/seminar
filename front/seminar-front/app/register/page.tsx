@@ -1,9 +1,9 @@
-"use client"; // この行を追加
+'use client'; // この行を追加
 // app/register/page.tsx
 
-import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { getRequest } from "../../api/mogemoge";
+import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { getUser } from '../../api/user';
 
 interface IFormInput {
   username: string;
@@ -12,13 +12,17 @@ interface IFormInput {
 }
 
 const Register: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>({
     mode: 'onChange', // バリデーションを onChange イベントで実行
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<IFormInput> = async data => {
     console.log(data);
-    console.log(await getRequest());
+    console.log(await getUser());
     // ここでフォームのデータを処理します
     console.log('Form submitted');
   };
@@ -32,15 +36,15 @@ const Register: React.FC = () => {
           <input
             type="text"
             id="username"
-            {...register("username", {
-              required: "ユーザー名が必要です",
+            {...register('username', {
+              required: 'ユーザー名が必要です',
               minLength: {
                 value: 3,
-                message: "ユーザー名は3文字以上である必要があります",
+                message: 'ユーザー名は3文字以上である必要があります',
               },
               maxLength: {
                 value: 20,
-                message: "ユーザー名は20文字以下である必要があります",
+                message: 'ユーザー名は20文字以下である必要があります',
               },
             })}
           />
@@ -51,11 +55,11 @@ const Register: React.FC = () => {
           <input
             type="email"
             id="email"
-            {...register("email", {
-              required: "メールアドレスが必要です",
+            {...register('email', {
+              required: 'メールアドレスが必要です',
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "有効なメールアドレスを入力してください",
+                message: '有効なメールアドレスを入力してください',
               },
             })}
           />
@@ -66,15 +70,16 @@ const Register: React.FC = () => {
           <input
             type="password"
             id="password"
-            {...register("password", {
-              required: "パスワードが必要です",
+            {...register('password', {
+              required: 'パスワードが必要です',
               minLength: {
                 value: 8,
-                message: "パスワードは8文字以上である必要があります",
+                message: 'パスワードは8文字以上である必要があります',
               },
               validate: {
-                hasNumber: (value) =>
-                  /\d/.test(value) || "パスワードには少なくとも1つの数字が含まれている必要があります",
+                hasNumber: value =>
+                  /\d/.test(value) ||
+                  'パスワードには少なくとも1つの数字が含まれている必要があります',
               },
             })}
           />
