@@ -1,26 +1,16 @@
-import axios from 'axios';
-import { headers } from 'next/headers';
 import httpClient from './httpClient';
 
-export async function getUser() {
-  try {
-    const response = await httpClient.get('');
-
-    return response.data;
-  } catch (error) {
-    console.error('There was a problem with the GET request:', error);
-    throw error;
-  }
+interface IFormInput {
+  username: string;
+  email: string;
+  password: string;
 }
 
-export async function createUser() {
+export async function createUser(requestBody: IFormInput): Promise<String> {
   try {
-    const response = await axios.post('http://localhost:3000/', {
-      headers: { 'Access-Control-Allow-Origin': '*' },
-    });
+    const response = await httpClient.post('', requestBody);
     return response.data;
   } catch (error) {
-    console.error('There was a problem with the GET request:', error);
     throw error;
   }
 }
