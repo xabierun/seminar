@@ -20,7 +20,6 @@ const Register: React.FC = () => {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput) => {
     const response = await createUser(data).catch((error: AxiosError) => {
-      console.log('error', error);
       return error;
     });
     alert(response);
